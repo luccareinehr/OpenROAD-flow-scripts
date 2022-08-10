@@ -31,9 +31,16 @@ if {[info exists ::env(FOOTPRINT)]} {
 # Initialize floorplan using DIE_AREA/CORE_AREA
 # ----------------------------------------------------------------------------
 } else {
+  create_voltage_domain TEMP_ANALOG -area $::env(VD1_AREA)
+  
   initialize_floorplan -die_area $::env(DIE_AREA) \
                        -core_area $::env(CORE_AREA) \
                        -site $::env(PLACE_SITE)
+
+   if {[info exist ::env(DOMAIN_INSTS_LIST)]} {
+    source $::env(SCRIPTS_DIR)/openfasoc/read_domain_instances.tcl
+    read_domain_instances TEMP_ANALOG $::env(DOMAIN_INSTS_LIST)
+  }
 }
 
 if { [info exists ::env(MAKE_TRACKS)] } {

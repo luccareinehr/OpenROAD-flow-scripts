@@ -78,8 +78,11 @@ export ADDER_MAP_FILE ?= $(PLATFORM_DIR)/cells_adders_hd.v
 # Define ABC driver and load
 export ABC_DRIVER_CELL = sky130_fd_sc_hd__buf_1
 export ABC_LOAD_IN_FF = 5
+
 # Set yosys-abc clock period to first "clk_period" value or "-period" value found in sdc file
-export ABC_CLOCK_PERIOD_IN_PS ?= $(shell sed -nr "s/^set clk_period (.+)|.* -period (.+) .*/\1\2/p" $(SDC_FILE) | head -1 | awk '{print $$1*1000}')
+# export ABC_CLOCK_PERIOD_IN_PS ?= $(shell sed -nr "s/^set clk_period (.+)|.* -period (.+) .*/\1\2/p" $(SDC_FILE) | head -1 | awk '{print $$1*1000}')
+# commented out because: in a design without clock signals, this would set the variable to "" (nothing), failing the synthesis step
+
 #--------------------------------------------------------
 # Floorplan
 # -------------------------------------------------------
@@ -93,7 +96,8 @@ export IO_PLACER_H = met3
 export IO_PLACER_V = met2
 
 # Define default PDN config
-export PDN_TCL ?= $(PLATFORM_DIR)/pdn.tcl
+# export PDN_TCL ?= $(PLATFORM_DIR)/pdn.tcl
+# commented out because: if only a design-specific PDN_CFG is specified, the script would still default to this PDN_TCL
 
 # Endcap and Welltie cells
 export TAPCELL_TCL = $(PLATFORM_DIR)/tapcell.tcl
@@ -104,7 +108,7 @@ export MACRO_PLACE_CHANNEL ?= 80 80
 #---------------------------------------------------------
 # Place
 # --------------------------------------------------------
-# default cell padding for cells 
+# default cell padding for cells
 export CELL_PAD_IN_SITES_GLOBAL_PLACEMENT ?= 1
 export CELL_PAD_IN_SITES_DETAIL_PLACEMENT ?= 0
 #
@@ -113,7 +117,7 @@ export PLACE_DENSITY ?= 0.60
 
 # Cell padding in SITE widths to ease rout-ability
 export CELL_PAD_IN_SITES ?= 4
-# 
+#
 # --------------------------------------------------------
 #  CTS
 #  -------------------------------------------------------
