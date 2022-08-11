@@ -31,4 +31,14 @@ export ADD_NDR_RULE		= 1
 export NDR_RULE_NETS 		= r_VIN
 export NDR_RULE 		= NDR_2W_2S
 
-export GALLERY_REPORT = 1
+# configuration for place step
+#-------------------------------------------------------------------------------
+# don't run global place w/o IOs
+export HAS_IO_CONSTRAINTS = 1
+# don't run non-random IO placement (step 3_2)
+export PLACE_PINS_ARGS = -random
+
+export GPL_ROUTABILITY_DRIVEN = 1
+
+export CELL_PAD_IN_SITES_GLOBAL_PLACEMENT = 4
+export CELL_PAD_IN_SITES_DETAIL_PLACEMENT = 2

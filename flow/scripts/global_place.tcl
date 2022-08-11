@@ -48,6 +48,26 @@ global_placement -density $place_density \
     {*}$global_placement_args
 }
 
+# set origin of all header cells to smaller voltage domain corner
+set db [ord::get_db]
+set tech [$db getTech]
+set libs [$db getLibs]
+set block [[$db getChip] getBlock]
+
+set region [$block findRegion "TEMP_ANALOG"]
+set rect [lindex [$region getBoundaries] 0]
+
+set domain_xMin [$rect xMin]
+set domain_yMin [$rect yMin]
+set domain_xMax [$rect xMax]
+set domain_yMax [$rect yMax]
+
+foreach inst [$block getInsts] {
+  if {[[$inst getMaster] getName] == "HEADER"} {
+    $inst setOrigin $domain_xMax $domain_yMax
+  }
+}
+
 estimate_parasitics -placement
 
 source $::env(SCRIPTS_DIR)/report_metrics.tcl

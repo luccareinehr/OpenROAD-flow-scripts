@@ -406,13 +406,15 @@ endif
 $(RESULTS_DIR)/3_3_place_gp.odb: $(RESULTS_DIR)/3_2_place_iop.odb $(RESULTS_DIR)/2_floorplan.sdc $(LIB_FILES)
 	($(TIME_CMD) $(OPENROAD_CMD) $(SCRIPTS_DIR)/global_place.tcl -metrics $(LOG_DIR)/3_3_place_gp.json) 2>&1 | tee $(LOG_DIR)/3_3_place_gp.log
 
-# STEP 4: Resizing & Buffering
+# STEP 4: Resizing & Buffering (not needed for the tempsense)
 #-------------------------------------------------------------------------------
-$(RESULTS_DIR)/3_4_place_resized.odb: $(RESULTS_DIR)/3_3_place_gp.odb $(RESULTS_DIR)/2_floorplan.sdc
-	($(TIME_CMD) $(OPENROAD_CMD) $(SCRIPTS_DIR)/resize.tcl -metrics $(LOG_DIR)/3_4_resizer.json) 2>&1 | tee $(LOG_DIR)/3_4_resizer.log
-
-clean_resize:
-	rm -f $(RESULTS_DIR)/3_4_place_resized.odb
+# $(RESULTS_DIR)/3_4_place_resized.odb: $(RESULTS_DIR)/3_3_place_gp.odb $(RESULTS_DIR)/2_floorplan.sdc
+# 	($(TIME_CMD) $(OPENROAD_CMD) $(SCRIPTS_DIR)/resize.tcl -metrics $(LOG_DIR)/3_4_resizer.json) 2>&1 | tee $(LOG_DIR)/3_4_resizer.log
+#
+# clean_resize:
+# 	rm -f $(RESULTS_DIR)/3_4_place_resized.odb
+$(RESULTS_DIR)/3_4_place_resized.odb: $(RESULTS_DIR)/3_3_place_gp.odb # just copy file to not break dependencies
+	cp $< $@
 
 # STEP 5: Detail placement
 #-------------------------------------------------------------------------------

@@ -108,7 +108,7 @@ export MACRO_PLACE_CHANNEL ?= 80 80
 #---------------------------------------------------------
 # Place
 # --------------------------------------------------------
-# default cell padding for cells
+# default cell padding for cells (following current openfasoc setup)
 export CELL_PAD_IN_SITES_GLOBAL_PLACEMENT ?= 1
 export CELL_PAD_IN_SITES_DETAIL_PLACEMENT ?= 0
 #
