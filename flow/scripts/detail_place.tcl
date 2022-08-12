@@ -18,7 +18,6 @@ if {[info exists ::env(ENABLE_DPO)] && $::env(ENABLE_DPO)} {
 }
 optimize_mirroring
 
-write_db $::env(RESULTS_DIR)/3_place_aaa.odb
 utl::info FLW 12 "Placement violations [check_placement -verbose]."
 
 estimate_parasitics -placement
