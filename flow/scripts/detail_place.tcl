@@ -36,9 +36,7 @@ if {$has_domain == 1} {
   }
 }
 
-foreach row [$block getRows] { puts [$row getName] }
-
-# run detailed_placement only on cells outside TEMP_ANALOG
+# run detailed_placement only on rows outside TEMP_ANALOG
 detailed_placement
 
 # recreate rows from TEMP_ANALOG
@@ -57,6 +55,7 @@ foreach row $domain_rows {
 if {$has_domain == 1} {
   set placed_insts []
   set region_insts [$region getRegionInsts]
+  # fix position of cells outside TEMP_ANALOG
   foreach inst [$block getInsts] {
     if {[lsearch -exact $region_insts $inst] >= 0} {
     } else {
@@ -82,7 +81,9 @@ if {$has_domain == 1} {
     }
   }
 
-  # run detailed_placement only on cells from TEMP_ANALOG
+  write_db $::env(RESULTS_DIR)/3_place_aaa.odb
+
+  # run detailed_placement only on rows from TEMP_ANALOG
   detailed_placement
 
   # recreate rows outside TEMP_ANALOG
