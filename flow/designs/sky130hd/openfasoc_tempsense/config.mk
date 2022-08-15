@@ -45,3 +45,5 @@ export ENABLE_DPO = 0
 
 #export CELL_PAD_IN_SITES_GLOBAL_PLACEMENT = 4
 #export CELL_PAD_IN_SITES_DETAIL_PLACEMENT = 2
+
+export PRE_GLOBAL_ROUTE = $(SCRIPTS_DIR)/openfasoc/add_ndr_rules.tcl
