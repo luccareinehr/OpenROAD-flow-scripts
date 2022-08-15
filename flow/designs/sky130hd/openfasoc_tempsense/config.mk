@@ -25,13 +25,7 @@ export ADDITIONAL_GDS_FILES 	= ./designs/$(PLATFORM)/$(DESIGN_NICKNAME)/gds/HEAD
 # informs what cells should be placed in the smaller voltage domain
 export DOMAIN_INSTS_LIST 	= ./designs/src/$(DESIGN_NICKNAME)/tempsenseInst_domain_insts.txt
 
-# export CUSTOM_CONNECTION 	= ../blocks/$(PLATFORM)/tempsenseInst_custom_net.txt
-
-export ADD_NDR_RULE		= 1
-export NDR_RULE_NETS 		= r_VIN
-export NDR_RULE 		= NDR_2W_2S
-
-# configuration for place step
+# configuration for placement
 #-------------------------------------------------------------------------------
 # don't run global place w/o IOs
 export HAS_IO_CONSTRAINTS = 1
@@ -46,4 +40,9 @@ export ENABLE_DPO = 0
 #export CELL_PAD_IN_SITES_GLOBAL_PLACEMENT = 4
 #export CELL_PAD_IN_SITES_DETAIL_PLACEMENT = 2
 
-export PRE_GLOBAL_ROUTE = $(SCRIPTS_DIR)/openfasoc/add_ndr_rules.tcl
+# configuration for routing
+#-------------------------------------------------------------------------------
+export PRE_GLOBAL_ROUTE = $(SCRIPTS_DIR)/openfasoc/pre_global_route.tcl
+
+# informs any short circuits that should be forced during routing
+export CUSTOM_CONNECTION 	= ./designs/src/$(DESIGN_NICKNAME)/tempsenseInst_custom_net.txt
