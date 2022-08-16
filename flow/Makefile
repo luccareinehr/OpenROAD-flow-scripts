@@ -451,7 +451,7 @@ cts: $(RESULTS_DIR)/4_cts.odb \
 # # ------------------------------------------------------------------------------
 # $(RESULTS_DIR)/4_1_cts.odb: $(RESULTS_DIR)/3_place.odb $(RESULTS_DIR)/3_place.sdc
 # 	($(TIME_CMD) $(OPENROAD_CMD) $(SCRIPTS_DIR)/cts.tcl -metrics $(LOG_DIR)/4_1_cts.json) 2>&1 | tee $(LOG_DIR)/4_1_cts.log
-$(RESULTS_DIR)/4_1_cts.odb: $(RESULTS_DIR)/3_place.odb # just copy file to not break dependencies
+$(RESULTS_DIR)/4_1_cts.odb: $(RESULTS_DIR)/3_place.odb $(RESULTS_DIR)/3_place.sdc # just copy file to not break dependencies
 	cp $< $@
 
 # Filler cell insertion
